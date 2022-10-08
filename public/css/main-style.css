@@ -1,0 +1,197 @@
+/*Francois One and Open Sans font import*/
+
+@import url('https://fonts.googleapis.com/css2?family=Francois+One&family=Open+Sans:ital,wght@0,400;1,300&family=Yanone+Kaffeesatz&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    /*background-image: url("/images/fire.jpg");*/
+    background-color: black;
+    background-position: center;
+    background-size: cover;
+}
+
+.index-title{
+    font-family: 'Francois One', sans-serif;
+}
+
+.index-picture{
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter, 1s;
+}
+
+.index-item:hover .index-picture{
+    filter: grayscale(0%) !important;
+    transform: scale(1.02);
+}
+
+.dropdown-toggle { outline: 0; }
+
+.btn-toggle {
+  padding: .25rem .5rem;
+  font-weight: 600;
+  color: rgb(255, 255, 255, 0.85);
+  background-color: transparent;
+}
+
+.mb-1 .btn:hover {
+    color: rgb(255, 255, 255);
+    background-color: transparent;
+}
+
+.btn-toggle::before {
+  width: 1.25em;
+  line-height: 0;
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='white' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+  transition: transform .35s ease;
+  transform-origin: .5em 50%;
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: rgba(255, 255, 255);
+}
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+}
+
+
+.scrollarea {
+  overflow-y: auto;
+}
+
+
+/*other*/
+.article-navigation {
+    display: none;
+}
+
+.article-offers{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.article-offers .category-name{
+    width: 100%;
+    background-color: lightgray;
+    text-align: center;
+}
+
+.article-offers article{
+    width: 80%;
+    height: 350px;
+    margin: 30px 0;
+    padding: 15px;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.article-offers .article-name {
+    width: 100%;
+    font-size: 30px;
+    padding: 5px 0;
+}
+
+.article-offers .article-description {
+    width: 100%;
+    font-size: 15px;
+    padding: 5px 0;
+}
+
+.article-offers article a {
+    width: 100%;
+}
+
+.article-offers article img {
+    width: 100%;
+    padding: 5px 0;
+    height: 150px;
+    object-fit: contain;
+   
+}
+
+.article-offers .article-price {
+    font-size: 35px;
+    color: #e29e35;
+    width: 60%;
+    height: 45px;
+    padding: 5px 0;
+}
+
+.article-offers .article-cart {
+    width: 30%;
+    padding: 5px 0;
+    text-align: right;
+}
+
+@media (min-width: 461px) {
+    .article-offers article{
+        width: 40%;
+    }
+}
+
+@media (min-width: 769px) {
+
+    .article-navigation {
+        display: block;
+        width: 15%;
+        height: 100%;
+        padding: 30px;
+        color: white;
+    }
+
+    .article-navigation .title {
+        font-family: 'Francois One', sans-serif;
+        font-size: 30px;
+        text-align: center;
+        padding-bottom: 20px;
+        border-bottom: 1px solid lightgray
+    }
+
+    .article-navigation .categories-list {
+        font-family: 'Gill Sans', 'Gill Sans MT';
+        padding: 20px 10px;
+        font-size: 20px;
+    }
+
+    .article-navigation .categories-list li{
+        padding: 10px 0;
+    }
+
+    .article-navigation .product-list{
+        padding-left: 10px;
+        font-size: 15px;
+        margin: 10px 0;
+    }
+
+    .article-navigation .product-list li{
+        padding: 5px 0;
+    }
+
+    .article-offers{
+        width: 85%;
+    }
+    .article-offers article{
+        width: 23%;
+    }
+}

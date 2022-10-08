@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <%- include('../partials/head') %>
+        </head>
+
+    <body>
+        <!-- icons -->
+        <%- include('../partials/icons') %>
+        <!-- header -->
+        <%- include('../partials/headerSimple') %>
+
+        <div class="bg-light text-dark" style="padding: 5em 0;">
+            <div class="container px-3 mx-auto">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 col-lg-10 px-3">
+                        <div class="row rounded shadow bg-white">
+                            <div class="col-md-5 pl-3">
+                                <img src="/images/products/<%= product.image %>" class="img-fluid w-100 rounded-start"
+                                    alt="product-image" style="object-fit: cover;">
+                            </div>
+                            <div class="col-md-7 p-4 p-md-5">
+                                <div class="d-flex justify-content-between">
+                                    <div class="w-100 text-start">
+                                        <h3 class="mb-4">Editando: <%=product.name%></h3>
+                                    </div>
+                                </div>
+                                <form action=""> <!-- completar! -->
+                                    <div class="mb-3">
+                                        <label for="exampleInput1" class="form-label fw-bold">Nombre del producto</label>
+                                        <input type="text" class="form-control" id="exampleInput1" name="productName" value="<%=product.name%>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInput2" class="form-label fw-bold">Descripción breve</label>
+                                        <input type="text" class="form-control" id="exampleInput2" value="<%= product.descriptionShort%>" name="productDescriptionShort">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlTextarea1" class="form-label fw-bold">Descripción detallada</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value=" " name="productDescriptionLong"><%= product.descriptionLong%></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleNumber" class="form-label fw-bold">Precio</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="number" class="form-control" id="exampleNumber" value="<%= product.price %>" name="productPrice">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleSelect" class="form-label fw-bold">Categoría</label>
+                                        <select class="form-select" id="exampleSelect" name="productCategory">
+                                            <option selected><%= product.category %></option>
+                                            <option value="1">cat1</option>
+                                            <option value="2">cat2</option>
+                                            <option value="3">cat3</option>
+                                            <option value="3">cat4</option>
+                                            <option value="3">cat5</option>
+                                            <option value="3">cat6</option>
+                                            <option value="3">cat7</option>
+                                            <option value="3">cat8</option>
+                                            <option value="3">cat9</option>
+                                            <option value="3">cat10</option>
+                                          </select>
+                                    </div>
+                                    <div class="mb-5">
+                                        <label for="formFile" class="form-label  fw-bold">Foto del producto</label>
+                                        <input class="form-control" type="file" id="formFile" name="productImage">
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <button type="submit" class="btn btn-warning" style="width:45%">ENVIAR</button>
+                                        <button type="reset" class="btn btn-danger" style="width:45%">BORRAR</button>
+                                    </div>
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- footer -->
+            <%- include('../partials/footer') %>
+
+    </body>
+
+</html>

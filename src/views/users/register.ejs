@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head') %>
+        <!-- <link rel="stylesheet" href="../css/register-style.css">  -->
+</head>
+
+<body>
+    <!-- icons -->
+    <%- include('../partials/icons') %>
+
+        <!-- header -->
+        <%- include('../partials/headerSimple') %>
+
+            <div class="bg-light text-dark" style="padding: 5em 0;">
+                <div class="container px-3 mx-auto">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 col-lg-10 px-3">
+                            <div class="row rounded shadow bg-white">
+                                <div class="col-md-5 px-0">
+                                    <img src="/images/main-background.jpg" class="img-fluid w-100 h-100 rounded-start"
+                                        alt="login-image" style="object-fit: cover;">
+                                </div>
+                                <div class="col-md-7 p-4 p-md-5">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="w-60 text-start">
+                                            <h3 class="mb-4">REGISTRATE</h3>
+                                        </div>
+                                        <div class="w-40 text-end ">
+                                            <a href="#" class="">
+                                                <svg class="me-1 me-sm-2" width="30px" height="30px" fill="gray">
+                                                    <use xlink:href="#facebook">
+                                                </svg></a>
+                                            <a href="#" class="">
+                                                <svg class="me-1 me-sm-2" width="30px" height="30px" fill="gray">
+                                                    <use xlink:href="#google">
+                                                </svg></a>
+                                        </div>
+                                    </div>
+                                    <form action=""> <!-- completar! -->
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Nombre Completo">
+                                            <label for="floatingInput">Nombre Completo</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="tel" class="form-control" id="floatingInput" placeholder="3515555555">
+                                            <label for="floatingInput">Teléfono/Celular</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Colon 123, Córdoba">
+                                            <label for="floatingInput">Dirección</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                            <label for="floatingInput">Email</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="password" class="form-control" id="floatingInput" placeholder="******">
+                                            <label for="floatingInput">Contraseña</label>
+                                            <div id="passwordHelpBlock" class="form-text">
+                                            8-20 caracteres, debe incluir al menos una mayúscula o número.
+                                            </div>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="password" class="form-control" id="floatingInput" placeholder="******">
+                                            <label for="floatingInput">Confirmá tu contraseña</label>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="formFile" class="form-label">Imagen de usuario</label>
+                                            <input class="form-control" type="file" id="formFile">
+                                        </div>
+                                        <button type="submit" class="btn btn-warning w-100">REGISTRARSE</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        <!-- footer -->
+        <%- include('../partials/footer') %>
+
+</body>
+
+</html>
