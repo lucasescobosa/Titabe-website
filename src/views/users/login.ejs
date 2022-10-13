@@ -36,14 +36,14 @@
                                     </svg></a>
                                 </div>
                             </div>
-                            <form action=""> <!-- completar! -->
+                            <form action="/users/login" method="POST">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label fw-bold">Email</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="ejemplo@gmail.com">
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="ejemplo@gmail.com" name="email">
                                   </div>
                                   <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label fw-bold">Contraseña</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="********">
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="********" name="password">
                                     <div id="passwordHelpBlock" class="form-text">
                                         8-20 caracteres, debe incluir al menos una mayúscula o número.
                                       </div>
@@ -60,7 +60,7 @@
                                   </div>
                                   <p class="text-center text-secondary">
                                     No tienes cuenta? 
-                                    <a href="/register" class="text-decoration-none text-secondary fw-bold">Registrate!</a>
+                                    <a href="/users/register" class="text-decoration-none text-secondary fw-bold">Registrate!</a>
                                   </p>
                             </form>
                         </div>
