@@ -1,11 +1,7 @@
-const fs = require("fs");
-const path = require("path");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-const User = require ('../models/User');
 
-const usersFilePath = path.join(__dirname, "../data/usersDataBase.json");
-let users = JSON.parse(fs.readFileSync(usersFilePath, "utf-8"));
+const User = require ('../models/User');
 
 const usersController = {
     register: (req, res) => {
@@ -17,7 +13,6 @@ const usersController = {
 
         //Consulto si existen errores y renderizo nuevamente la vista con los mismos
         if(resultValidation.errors.length > 0){
-            console.log(req.body)
             return res.render("./users/register", {
                 errors: resultValidation.mapped(),
                 oldData: req.body
@@ -47,6 +42,7 @@ const usersController = {
                 oldData: req.body
             })
         }
+
         let userToRegister = req.body;
         delete userToRegister.passwordCheck;
         let newUser = {
@@ -56,28 +52,47 @@ const usersController = {
             image: req.file ? req.file.filename : "default.jpg",
             admin: req.body.admin ? req.body.admin : "false"
         }
-        User.create(newUser);
+        let userCreated = User.create(newUser);
+
         res.redirect("/users/login");
     },
 
     login: (req, res) => {
         res.render("./users/login")
     },
+
     loginProcess: (req, res) => {
-        const userToLogin = users.find(oneUser => oneUser.email == req.body.email);
+        const userToLogin = User.findByField('email', req.body.email);
         if (userToLogin) {
             const isPaswordCorrect = bcrypt.compareSync(req.body.password, userToLogin.password)
             if (isPaswordCorrect) {
                 delete userToLogin.password;
                 req.session.userLogged = userToLogin;
-                if (req.body.recordame != undefined) {
-                    res.cookie('recordame', req.session.userLogged.email, { maxAge: 100000 })
+                if (req.body.remember) {
+                    res.cookie('remember', req.session.userLogged.email, { maxAge: 100000 })
                 }
-                res.redirect('/');
+                return res.redirect('/');
             };
+            return res.render("./users/login", {
+                errors: {
+                    email: {
+                        msg: 'Las credenciales son inválidas'
+                    }
+                }
+            });
+
         };
+        return res.render("./users/login", {
+            errors: {
+                email: {
+                    msg: 'No se encuentra el email registrado'
+                }
+            }
+        });
     },
+
     logout: (req,res) => {
+        res.clearCookie('remember');
         req.session.destroy();
         return res.redirect('/');
     }

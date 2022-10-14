@@ -47,10 +47,24 @@
             aria-label="Search">
         </form>
 
-        <div class="text-end">
+        <div class="text-end d-flex flex-wrap align-items-center justify-content-center">
+          <% if (locals.isLogged) { %> <!-- Si el usuario está logueado muestra el icono con la foto de perfil -->
+            <div class="dropdown text-end me-3">
+              <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="/images/users/<%= locals.userLogged.image %>" alt="mdo" width="32" height="32" class="rounded-circle">
+              </a>
+              <ul class="dropdown-menu text-small">
+                <li><a class="dropdown-item" href="#"><%= locals.userLogged.fullName %></a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="/users/logout">Cerrar sesión</a></li>
+              </ul>
+            </div>
+          <% } else {%> <!-- si no hay nadie logueado muestra el boton de iniciar sesión -->
           <a href="/users/login"><button type="button" class="btn btn-outline-light me-2">Iniciar Sesión</button></a>
+          <% } %> 
           <a href="/products/cart"><button type="button" class="btn btn-warning"><svg class="bi pe-none" width="30"
-                height="24" fill="black">
+                height="22" fill="black">
                 <use xlink:href="#cart" />
               </svg></button></a>
         </div>

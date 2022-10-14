@@ -4,11 +4,11 @@ const path = require ('path');
 const methodOverride =  require('method-override'); // Para poder usar los métodos PUT y DELETE
 const session = require('express-session'); // Para implementar session
 const cookieParser = require('cookie-parser'); //Para implementar cookie
-const recordameMiddleware = require('./src/middlewares/recordameMiddleware');  //Para requerir middleware de recordar usuario
-const userLoggedMiddleware = require('./src/middlewares/userLoggedMiddleware');
 
 //Ejecucion de express
 const app = express();
+
+const userLoggedMiddleware = require('./src/middlewares/userLoggedMiddleware');
 
 //Middlewares
 app.use(express.static('public'));
@@ -21,7 +21,6 @@ app.use(session({
     saveUninitialized: false,
 }));                                   
 app.use(cookieParser());                //Ejecución de cookie
-app.use(recordameMiddleware);
 app.use(userLoggedMiddleware);
 
 //Template engine

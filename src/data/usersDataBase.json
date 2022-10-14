@@ -18,15 +18,5 @@
   "password": "$2a$10$eXBPW1eXxc7vZhAZnzqQ2uN1gQH/u4zmpcD6u8OULlTMaS4LNED8u",
   "admin": "true",
   "image": "default.jpg"
- },
- {
-  "id": 3,
-  "fullName": "asd",
-  "phoneNumber": "213",
-  "address": "as",
-  "email": "a@gmail.com",
-  "password": "$2a$10$Q4wCoaLuqzC9a8VIdCsj5e5g86nCHcFSvuiR4JCd7ft8Wv.tiO3.K",
-  "admin": "true",
-  "image": "default.jpg"
  }
 ]

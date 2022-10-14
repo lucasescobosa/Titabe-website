@@ -40,7 +40,7 @@
                                     </div>
                                     <form action="/users/register" method="POST" enctype="multipart/form-data">
                                         <div class="form-floating mt-3">
-                                            <input type="text" class="form-control <%= locals.errors && errors.fullName ? 'is-invalid' : null %> " id="floatingInput" placeholder="Nombre Completo" name="fullName" value="<%= locals.oldData ? oldData.fullName : null %> ">
+                                            <input type="text" class="form-control <%= locals.errors && errors.fullName ? 'is-invalid' : null %> " id="floatingInput" placeholder="Nombre Completo" name="fullName" value="<%= locals.oldData ? oldData.fullName : null %>">
                                             <label for="floatingInput">Nombre Completo</label>
                                         </div>
                                         <% if (locals.errors && errors.fullName) { %>
@@ -50,7 +50,7 @@
                                         <% } %>
 
                                         <div class="form-floating mt-3">
-                                            <input type="tel" class="form-control <%= locals.errors && errors.phoneNumber ? 'is-invalid' : null %>" id="floatingInput" placeholder="3515555555" name="phoneNumber">
+                                            <input type="tel" class="form-control <%= locals.errors && errors.phoneNumber ? 'is-invalid' : null %>" id="floatingInput" placeholder="3515555555" name="phoneNumber" value="<%= locals.oldData ? oldData.phoneNumber : null %>">
                                             <label for="floatingInput">Teléfono/Celular</label>
                                         </div>
                                         <% if (locals.errors && errors.phoneNumber) { %>
@@ -60,7 +60,7 @@
                                         <% } %>
 
                                         <div class="form-floating mt-3">
-                                            <input type="text" class="form-control <%= locals.errors && errors.address ? 'is-invalid' : null %>" id="floatingInput" placeholder="Colon 123, Córdoba" name="address">
+                                            <input type="text" class="form-control <%= locals.errors && errors.address ? 'is-invalid' : null %>" id="floatingInput" placeholder="Colon 123, Córdoba" name="address" value="<%= locals.oldData ? oldData.address : null %>">
                                             <label for="floatingInput">Dirección</label>
                                         </div>
                                         <% if (locals.errors && errors.address) { %>
@@ -70,7 +70,7 @@
                                         <% } %>
 
                                         <div class="form-floating mt-3">
-                                            <input type="email" class="form-control <%= locals.errors && errors.email ? 'is-invalid' : null %>" id="floatingInput" placeholder="name@example.com" name="email">
+                                            <input type="email" class="form-control <%= locals.errors && errors.email ? 'is-invalid' : null %>" id="floatingInput" placeholder="name@example.com" name="email" value="<%= locals.oldData ? oldData.email : null %>">
                                             <label for="floatingInput">Email</label>
                                         </div>
                                         <% if (locals.errors && errors.email) { %>
