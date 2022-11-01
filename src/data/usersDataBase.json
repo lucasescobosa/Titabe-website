@@ -2,20 +2,10 @@
  {
   "id": 1,
   "fullName": "Lucas Escobosa",
-  "phoneNumber": 3513894855,
-  "address": "Colon 123, Cordoba",
-  "image": "default.jpg",
+  "phoneNumber": "3515555555",
+  "address": "Cordoba, Argentina",
   "email": "lucasescobosa@gmail.com",
-  "password": "12345",
-  "admin": false
- },
- {
-  "id": 2,
-  "fullName": "Lucas Escobosa",
-  "phoneNumber": "3513132121",
-  "address": "Colon 123, cordoba",
-  "email": "lucas@gmail.com",
-  "password": "$2a$10$eXBPW1eXxc7vZhAZnzqQ2uN1gQH/u4zmpcD6u8OULlTMaS4LNED8u",
+  "password": "$2a$10$8ypGRyc2Tfac13ivgDRtMO74BS/gprL17DP1e8yuzt9TyhXFweFCe",
   "admin": "true",
   "image": "default.jpg"
  }

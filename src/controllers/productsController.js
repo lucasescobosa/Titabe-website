@@ -1,42 +1,74 @@
 const { json } = require('express');
-const fs = require('fs');
-const path = require('path');
-
-const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
-const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+const db = require('../database/models');
+const Product = require('../database/models/Product');
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 const productsController = {
 	//Todos los productos
-    index: (req, res) => {
-        res.render('./products/products', {products:products, toThousand});
+    index: async (req, res) => {
+		try{
+			const products = await db.Product.findAll({
+				//Incluir la tabla imagenes y obtener la principal
+				include: {
+							association: 'products_images',
+							where: { main: 1 }
+						},
+				//Ordenar para que aparezcan primero las ofertas y al último los productos sin stock
+				order: [
+					['offer', 'DESC'],  
+					['stock', 'DESC']
+				]
+			})
+			console.log(JSON.stringify(products,null,2))
+			if(!products) {
+				res.status(404).json({error: 'No encontrado'});
+				return
+			};
+
+			res.render('./products/products', {products, toThousand})
+
+		} catch(e) {
+      		res.status(500).json({ error: e })
+		}     
     },
 
 	//Creat un producto
     create: (req, res) => {
         res.render('./products/productCreate') //crear nueva vista para creacion
     },
+
 	//Formulario de creacion de un producto
-    store: (req, res) => {
-        let newProduct = {
-			id : products[products.length -1 ].id + 1, //cambiar para buscar el id mas grande
-			name : req.body.productName,
-			descriptionShort : req.body.productDescriptionShort,
-			descriptionLong : req.body.productDescriptionLong,
-			price : parseInt(req.body.productPrice),
-			category : req.body.productCategory,
-			image : req.file ? req.file.filename : 'default-image.png'
+    store: async (req, res) => {
+        try {
+			const product = await db.Product.create({
+				name : req.body.productName,
+				descriptionShort : req.body.productDescriptionShort,
+				descriptionLong : req.body.productDescriptionLong,
+				price : parseInt(req.body.productPrice),
+				subcategory_id : 1
+				//category : req.body.productCategory,
+				//image : req.file ? req.file.filename : 'default-image.png'
+			});
+
+			res.redirect('/products')
+		} catch(e) {
+			res.status(500).json({ error: e })
 		}
-		products.push(newProduct);
-		fs.writeFileSync(productsFilePath, JSON.stringify(products, null, ' '));
-		res.redirect('/products');
-    },
+	},
 
 	//Detalle de un producto
-    detail: (req, res) => {
-        let product = products.find(element => element.id == req.params.id)
-		res.render('./products/productDetail', {product:product, toThousand});
+    detail: async (req, res) => {
+		try {
+			const product = await db.Product.findByPk(req.params.id , {
+				include: {
+					association: 'products_images'
+				}
+			})
+			res.render('./products/productDetail', {product, toThousand});
+		} catch(e) {
+			res.status(500).json({ error: e })
+		}		
     },
 
 	//Modificar un producto
