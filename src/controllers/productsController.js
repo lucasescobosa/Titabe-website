@@ -20,7 +20,6 @@ const productsController = {
 					['stock', 'DESC']
 				]
 			})
-			console.log(JSON.stringify(products,null,2))
 			if(!products) {
 				res.status(404).json({error: 'No encontrado'});
 				return
@@ -29,11 +28,11 @@ const productsController = {
 			res.render('./products/products', {products, toThousand})
 
 		} catch(e) {
-      		res.status(500).json({ error: e })
+      		res.status(500).json({ mensaje: 'Lo sentimos no se pudo establecer la conexion con la base de datos', error: e })
 		}     
     },
 
-	//Creat un producto
+	//Vista crear un producto
     create: (req, res) => {
         res.render('./products/productCreate') //crear nueva vista para creacion
     },
@@ -46,12 +45,22 @@ const productsController = {
 				descriptionShort : req.body.productDescriptionShort,
 				descriptionLong : req.body.productDescriptionLong,
 				price : parseInt(req.body.productPrice),
-				subcategory_id : 1
-				//category : req.body.productCategory,
-				//image : req.file ? req.file.filename : 'default-image.png'
+				subcategory_id : req.body.productSubcategory,
+				offer : parseInt(req.body.productDiscount) !== 0 ? 1 : 0,
+				discount : parseInt(req.body.productDiscount) !== 0 ? parseInt(req.body.productDiscount) : 0,
+				stock : req.body.productStock != undefined ? 1 : 0,
+				products_images : [
+					{name : req.files.productImageMain[0].filename, main : 1},
+					{name : req.files.productImages[0].filename , main : 0},
+					{name : req.files.productImages[1].filename , main : 0},
+					{name : req.files.productImages[2].filename , main : 0},
+				]
+			},{
+				include : {association : 'products_images'}
 			});
-
+			
 			res.redirect('/products')
+
 		} catch(e) {
 			res.status(500).json({ error: e })
 		}
@@ -72,32 +81,58 @@ const productsController = {
     },
 
 	//Modificar un producto
-    modify: (req, res) => {
-        let product = products.find(element => element.id == req.params.id)
-		res.render('./products/productModify', {product:product, toThousand});
-    },
-	//Formulario de modificacion de producto
-    update: (req, res) => {
-        let index = products.indexOf(products.find(element => element.id == req.params.id));
-		products[index]={
-			id : products[index].id,
-			name : req.body.productName,
-			descriptionShort : req.body.productDescriptionShort,
-			descriptionLong : req.body.productDescriptionLong,
-			price : parseInt(req.body.productPrice),
-			category : req.body.productCategory,
-			image : products[index].image
+    modify: async (req, res) => {
+		try {
+			const product = await db.Product.findByPk(req.params.id , {
+				include: {
+					association: 'products_images'
+				}
+			})
+			const categories = await db.Category.findAll();
+			const subcategories = await db.Subcategory.findAll();
+			res.render('./products/productModify', {product, categories, subcategories, toThousand});
+		} catch(e) {
+			res.status(500).json({ error: e })
 		}
-		fs.writeFileSync(productsFilePath, JSON.stringify(products, null, ' '));
-		res.redirect('/products/');
+    },
+
+	//Formulario de modificacion de producto
+    update: async (req, res) => {
+		try {
+			const product = await db.Product.update({
+				name : req.body.productName,
+				descriptionShort : req.body.productDescriptionShort,
+				descriptionLong : req.body.productDescriptionLong,
+				price : parseInt(req.body.productPrice),
+				subcategory_id : req.body.productSubcategory,
+				offer : parseInt(req.body.productDiscount) !== 0 ? 1 : 0,
+				discount : parseInt(req.body.productDiscount) !== 0 ? parseInt(req.body.productDiscount) : 0,
+				stock : req.body.productStock != undefined ? 1 : 0,
+			},{
+				where: { id : req.params.id	}
+			})
+			res.redirect('/products/');
+
+		} catch(e) {
+			res.status(500).json({ error: e })
+		}
     },
 
 	//Formulario de eliminacion de un producto
-    delete: (req, res) => {
-        let index = products.indexOf(products.find(element => element.id == req.params.id));
-		products.splice(index, 1);
-		fs.writeFileSync(productsFilePath, JSON.stringify(products, null, ' '));
-		res.redirect('/products/');
+    delete: async (req, res) => {
+		try {
+			const images = await db.Product_image.destroy({
+				where: { product_id : req.params.id	}
+			})
+			const product = await db.Product.destroy({
+				where: { id : req.params.id	}
+			})
+
+			res.redirect('/products/');
+
+		} catch(e) {
+			res.status(500).json({ error: e })
+		}
     },
 
 	//Carrito de compras

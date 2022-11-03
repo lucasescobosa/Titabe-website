@@ -2,8 +2,9 @@
 <html lang="en">
 
     <head>
+        <!-- HTML head -->
         <%- include('../partials/head') %>
-        </head>
+    </head>
 
     <body>
         <!-- icons -->
@@ -23,7 +24,7 @@
                             <div class="col-md-7 p-4 p-md-5">
                                 <div class="d-flex justify-content-between">
                                     <div class="w-100 text-start">
-                                        <h3 class="mb-4">Agregar nuevo producto</h3>
+                                        <h3 class="mb-4">Agregar nuevo item</h3>
                                     </div>
                                 </div>
                                 <form action="/products/" method="POST" enctype="multipart/form-data" class="edit-form">
@@ -39,34 +40,74 @@
                                         <textarea class="form-control" placeholder="Descripción detallada" name="productDescriptionLong" id="floatingTextarea2" style="height: 100px"></textarea>
                                         <label for="floatingTextarea2">Descripción detallada</label>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text">$</span>
-                                        <div class="form-floating">
-                                          <input type="number" class="form-control" id="floatingInputGroup1" placeholder="Precio" name="productPrice">
-                                          <label for="floatingInputGroup1">Precio</label>
+                                    <div class="row g-2">
+                                        <div class="col-md">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">$</span>
+                                                <div class="form-floating">
+                                                <input type="number" class="form-control" id="floatingInputGroup1" placeholder="Precio original" name="productPrice">
+                                                <label for="floatingInputGroup1">Precio original</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="input-group mb-3">
+                                                <div class="form-floating">
+                                                    <input type="number" class="form-control" id="floatingInputGroup1" placeholder="Descuento" name="productDiscount" value="0">
+                                                    <label for="floatingInputGroup1">Descuento</label>
+                                                </div>
+                                                <span class="input-group-text">%</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <div class="form-floating">
-                                          <select class="form-select" id="floatingSelectGrid" name="productCategory">
-                                            <option selected>cat1</option>
-                                            <option value="1">cat1</option>
-                                            <option value="2">cat2</option>
-                                            <option value="3">cat3</option>
-                                            <option value="3">cat4</option>
-                                            <option value="3">cat5</option>
-                                            <option value="3">cat6</option>
-                                            <option value="3">cat7</option>
-                                            <option value="3">cat8</option>
-                                            <option value="3">cat9</option>
-                                            <option value="3">cat10</option>
-                                          </select>
-                                          <label for="floatingSelectGrid">Categoría</label>
+
+                                    <div class="row g-2">
+                                        <div class="col-md">
+                                            <div class="mb-3">
+                                                <div class="form-floating">
+                                                <select class="form-select" id="floatingSelectGrid" name="productCategory">
+                                                    <option selected value="1">Productos</option>
+                                                    <option value="2">Servicios</option>
+                                                </select>
+                                                <label for="floatingSelectGrid">Categoría</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="mb-3">
+                                                <div class="form-floating">
+                                                <select class="form-select" id="floatingSelectGrid" name="productSubcategory">
+                                                    <option selected value="1">Leñeros/Braseros/Diablitos</option>
+                                                    <option value="2">Parrillas</option>
+                                                    <option value="3">A la cruz</option>
+                                                    <option value="4">Fogoneros</option>
+                                                    <option value="5">Asadores</option>
+                                                    <option value="6">Discos</option>
+                                                    <option value="7">Accesorios</option>
+                                                    <option value="8">Tablas</option>
+                                                    <option value="9">Alquileres</option>
+                                                    <option value="10">Grabados</option>
+                                                </select>
+                                                <label for="floatingSelectGrid">Subcategoría</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="mb-5">
-                                        <label for="formFile" class="form-label  fw-bold">Foto del producto</label>
-                                        <input class="form-control" type="file" id="formFile" name="productImage">
+                                    <div class="mb-4">
+                                        <label for="formFile" class="form-label  fw-bold">Fotos del producto</label>
+                                        <div class="input-group mb-2">
+                                            <input class="form-control" type="file" id="formFile" name="productImageMain">
+                                            <label class="input-group-text" for="inputGroupFile01">Portada</label>
+                                        </div>
+                                        <div class="input-group">
+                                            <input class="form-control" type="file" id="formFile" name="productImages" multiple>
+                                            <label class="input-group-text" for="inputGroupFile01">Otras</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check form-switch mb-4">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="productStock" checked>
+                                        <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">Producto en Stock</label>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <button type="submit" class="btn btn-warning" style="width:45%">ENVIAR</button>

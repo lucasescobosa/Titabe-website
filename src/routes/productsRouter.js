@@ -10,12 +10,12 @@ const productsMulterMiddleware = require('../middlewares/productsMulterMiddlewar
 //Listado de productos
 router.get('/', productsController.index); 
 
-//Formulario de creación de productos
-router.get('/create', productsController.create);
-router.post('/', productsMulterMiddleware.single('productImage'), productsController.store);
-
 //Detalle de producto
 router.get('/detail/:id', productsController.detail);
+
+//Formulario de creación de productos
+router.get('/create', productsController.create);
+router.post('/', productsMulterMiddleware.fields([{name: 'productImageMain', maxCount: 1} , {name: 'productImages' , maxCount: 3}]), productsController.store);
 
 //Edicion de producto
 router.get('/:id/edit', productsController.modify);

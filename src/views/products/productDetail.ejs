@@ -26,18 +26,15 @@
                         <div class="row g-0">
                             <div class="col-md-6 border-end">
                                 <div class="d-flex flex-column justify-content-center">
-                                    <div class="main_image"> <img src="/images/products/<%= product.image %>"
+                                    <div class="main_image"> <img src="/images/products/<%= product.products_images[0].name %>"
                                             id="main_product_image" width="350"> </div>
                                     <div class="thumbnail_images">
                                         <ul id="thumbnail">
-                                            <li><img onclick="changeImage(this)"
-                                                    src="/images/products/<%= product.image %>" width="70"></li>
-                                            <li><img onclick="changeImage(this)"
-                                                    src="/images/products/<%= product.image %>" width="70"></li>
-                                            <li><img onclick="changeImage(this)"
-                                                    src="/images/products/<%= product.image %>" width="70"></li>
-                                            <li><img onclick="changeImage(this)"
-                                                    src="/images/products/<%= product.image %>" width="70"></li>
+                                            <% for( let i = 0; i < product.products_images.length; i++ ) { %>
+                                                <li>
+                                                    <img onclick="changeImage(this)" src="/images/products/<%= product.products_images[i].name %>" width="70">
+                                                </li>
+                                            <% } %>
                                         </ul>
                                     </div>
                                 </div>
