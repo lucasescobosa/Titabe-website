@@ -8,7 +8,7 @@ const usersController = {
     },
 
     store: async (req, res) => {
-        try{
+        
             const resultValidation = validationResult(req); 
     
             //Consulto si existen errores y renderizo nuevamente la vista con los mismos
@@ -45,13 +45,14 @@ const usersController = {
                     oldData: req.body
                 })
             }
-            
+
+        try{
             const newUser = await db.User.create({
                 fullName: req.body.fullName,
                 email: req.body.email,
-                phoneNumber: req.body.phoneNumber,
+                phoneNumber: parseInt(req.body.phoneNumber),
                 address: req.body.address,
-                password: bcrypt.hashSync(userToRegister.password , 10),
+                password: bcrypt.hashSync(req.body.password , 10),
                 image: req.file ? req.file.filename : "default.jpg",
                 role_id: req.body.admin ? 2 : 3
             })
