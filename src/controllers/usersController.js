@@ -1,94 +1,107 @@
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-
-const User = require ('../models/User');
+const db = require('../database/models');
 
 const usersController = {
     register: (req, res) => {
         res.render("./users/register")
     },
 
-    store: (req, res) => {
-        const resultValidation = validationResult(req); 
-
-        //Consulto si existen errores y renderizo nuevamente la vista con los mismos
-        if(resultValidation.errors.length > 0){
-            return res.render("./users/register", {
-                errors: resultValidation.mapped(),
-                oldData: req.body
+    store: async (req, res) => {
+        try{
+            const resultValidation = validationResult(req); 
+    
+            //Consulto si existen errores y renderizo nuevamente la vista con los mismos
+            if(resultValidation.errors.length > 0){
+                return res.render("./users/register", {
+                    errors: resultValidation.mapped(),
+                    oldData: req.body
+                })
+            }
+            
+            //Chequeo que no existan usuarios con ese mail
+            const userRegistered = await db.User.findOne({
+                where: {email : req.body.email}
             })
-        }
-
-        //Chequeo que no existan usuarios con ese mail
-        if(User.findByField('email', req.body.email)){
-            return res.render("./users/register", {
-                errors: {
-                    email: {
-                        msg: 'Este email ya está registrado'
-                    }
-                },
-                oldData: req.body
+            if(userRegistered){
+                return res.render("./users/register", {
+                    errors: {
+                        email: {
+                            msg: 'Este email ya está registrado'
+                        }
+                    },
+                    oldData: req.body
+                })
+            }
+            
+            //Comparo que las dos contaseñas coincidan
+            if(req.body.password != req.body.passwordCheck){
+                return res.render("./users/register", {
+                    errors: {
+                        password: {
+                            msg: 'Las contraseñas no coinciden'
+                        }
+                    },
+                    oldData: req.body
+                })
+            }
+            
+            const newUser = await db.User.create({
+                fullName: req.body.fullName,
+                email: req.body.email,
+                phoneNumber: req.body.phoneNumber,
+                address: req.body.address,
+                password: bcrypt.hashSync(userToRegister.password , 10),
+                image: req.file ? req.file.filename : "default.jpg",
+                role_id: req.body.admin ? 2 : 3
             })
-        }
+    
+            return res.redirect("/users/login");
 
-        //Comparo que las dos contaseñas coincidan
-        if(req.body.password != req.body.passwordCheck){
-            return res.render("./users/register", {
-                errors: {
-                    password: {
-                        msg: 'Las contraseñas no coinciden'
-                    }
-                },
-                oldData: req.body
-            })
-        }
+        } catch(e) {
+			res.status(500).json({ error: e })
+		}
 
-        let userToRegister = req.body;
-        delete userToRegister.passwordCheck;
-        let newUser = {
-            id: User.generateID(),
-            ...userToRegister,
-            password: bcrypt.hashSync(userToRegister.password , 10),
-            image: req.file ? req.file.filename : "default.jpg",
-            admin: req.body.admin ? req.body.admin : "false"
-        }
-        let userCreated = User.create(newUser);
-
-        res.redirect("/users/login");
     },
 
     login: (req, res) => {
         res.render("./users/login")
     },
 
-    loginProcess: (req, res) => {
-        const userToLogin = User.findByField('email', req.body.email);
-        if (userToLogin) {
-            const isPaswordCorrect = bcrypt.compareSync(req.body.password, userToLogin.password)
-            if (isPaswordCorrect) {
-                delete userToLogin.password;
-                req.session.userLogged = userToLogin;
-                if (req.body.remember) {
-                    res.cookie('remember', req.session.userLogged.email, { maxAge: 100000 })
-                }
-                return res.redirect('/');
-            };
+    loginProcess: async (req, res) => {
+        try {
+            const userToLogin = await db.User.findOne({
+                where: {email : req.body.email}
+            })
+            if (userToLogin) {
+                const isPaswordCorrect = bcrypt.compareSync(req.body.password, userToLogin.password)
+                if (isPaswordCorrect) {
+                    delete userToLogin.password;
+                    req.session.userLogged = userToLogin;
+                    if (req.body.remember) {
+                        res.cookie('remember', req.session.userLogged.email, { maxAge: 100000 })
+                    }
+                    return res.redirect('/');
+                };
+                return res.render("./users/login", {
+                    errors: {
+                        email: {
+                            msg: 'Las credenciales son inválidas'
+                        }
+                    }
+                });
+            }
             return res.render("./users/login", {
                 errors: {
                     email: {
-                        msg: 'Las credenciales son inválidas'
+                        msg: 'No se encuentra el email registrado'
                     }
                 }
             });
 
-        };
-        return res.render("./users/login", {
-            errors: {
-                email: {
-                    msg: 'No se encuentra el email registrado'
-                }
-            }
-        });
+        } catch(e) {
+			res.status(500).json({ error: e })
+		}
     },
 
     logout: (req,res) => {

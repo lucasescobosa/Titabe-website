@@ -1,6 +1,5 @@
 const { json } = require('express');
 const db = require('../database/models');
-const Product = require('../database/models/Product');
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 

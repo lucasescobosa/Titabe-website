@@ -48,6 +48,16 @@
                                                 <%= errors.fullName.msg %> 
                                             </div>
                                         <% } %>
+                                        
+                                        <div class="form-floating mt-3">
+                                            <input type="email" class="form-control <%= locals.errors && errors.email ? 'is-invalid' : null %>" id="floatingInput" placeholder="name@example.com" name="email" value="<%= locals.oldData ? oldData.email : null %>">
+                                            <label for="floatingInput">Email</label>
+                                        </div>
+                                        <% if (locals.errors && errors.email) { %>
+                                            <div class="text-danger">
+                                                <%= errors.email.msg %> 
+                                            </div>
+                                        <% } %>
 
                                         <div class="form-floating mt-3">
                                             <input type="tel" class="form-control <%= locals.errors && errors.phoneNumber ? 'is-invalid' : null %>" id="floatingInput" placeholder="3515555555" name="phoneNumber" value="<%= locals.oldData ? oldData.phoneNumber : null %>">
@@ -66,16 +76,6 @@
                                         <% if (locals.errors && errors.address) { %>
                                             <div class="text-danger">
                                                 <%= errors.address.msg %> 
-                                            </div>
-                                        <% } %>
-
-                                        <div class="form-floating mt-3">
-                                            <input type="email" class="form-control <%= locals.errors && errors.email ? 'is-invalid' : null %>" id="floatingInput" placeholder="name@example.com" name="email" value="<%= locals.oldData ? oldData.email : null %>">
-                                            <label for="floatingInput">Email</label>
-                                        </div>
-                                        <% if (locals.errors && errors.email) { %>
-                                            <div class="text-danger">
-                                                <%= errors.email.msg %> 
                                             </div>
                                         <% } %>
 
