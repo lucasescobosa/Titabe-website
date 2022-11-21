@@ -37,14 +37,13 @@
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="/" class="nav-link px-2 text-warning">INICIO</a></li>
-          <li><a href="/Products" class="nav-link px-2 text-white">PRODUCTOS</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">CONTACTO</a></li>
+          <li><a href="/" class="nav-link px-2 text-white liNavbar1">INICIO</a></li>
+          <li><a href="/products" class="nav-link px-2 text-white liNavbar2">TIENDA</a></li>
+          <li><a href="#" class="nav-link px-2 text-white liNavbar3">CONTACTO</a></li>
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Busca tu producto..."
-            aria-label="Search">
+        <form action="/search" method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+          <input type="search" name="search" class="form-control form-control-dark text-bg-dark" placeholder="Busca tu producto..." aria-label="Search">
         </form>
 
         <div class="text-end d-flex flex-wrap align-items-center justify-content-center">
@@ -71,77 +70,5 @@
       </div>
     </div>
   </div>
-
-  <!-- Carousel -->
-  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
-        aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-
-      <div class="carousel-item active">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-          preserveAspectRatio="xMidYMid slice" focusable="false">
-          <rect width="100%" height="100%" fill="black" />
-        </svg>
-
-        <div class="container">
-          <div class="carousel-caption">
-            <p>Promocion 1</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-          preserveAspectRatio="xMidYMid slice" focusable="false">
-          <rect width="100%" height="100%" fill="black" />
-        </svg>
-
-        <div class="container">
-          <div class="carousel-caption">
-            <h1>Another example headline.</h1>
-            <p>Some representative placeholder content for the second slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-          preserveAspectRatio="xMidYMid slice" focusable="false">
-          <rect width="100%" height="100%" fill="black" />
-        </svg>
-
-        <div class="container">
-          <div class="carousel-caption">
-            <h1>Another example headline.</h1>
-            <p>Some representative placeholder content for the second slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-
-  <div class="header-categories">
-    <a href=""><img src="/images/cat-discos.jpg" alt="categoria-discos"></a>
-    <a href=""><img src="/images/cat-fogonero.jpg" alt="categoria-fogonero"></a>
-    <a href=""><img src="/images/cat-leñero.jpg" alt="categoria-leñero"></a>
-    <a href=""><img src="/images/cat-parrilla.jpg" alt="categoria-parrilla"></a>
-    <a href=""><img src="/images/cat-plancha.jpg" alt="categoria-plancha"></a>
-  </div>
 </header>
+<script src="/js/header.js"></script>

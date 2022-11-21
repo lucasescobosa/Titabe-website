@@ -31,6 +31,66 @@ const productsController = {
 		}     
     },
 
+	//Vista filtrada por categorias
+	indexCategory: async (req,res) => {
+		try{
+			const products = await db.Product.findAll({
+				//where: { subcategory_id : req.params.id },
+				//Incluir la tabla imagenes y obtener la principal
+				include: [{
+							association: 'products_images',
+							where: { main: 1 }
+						},
+						{
+							association: 'subcategories',
+							where: { category_id: req.params.id }
+						}],
+				//Ordenar para que aparezcan primero las ofertas y al último los productos sin stock
+				order: [
+					['offer', 'DESC'],  
+					['stock', 'DESC']
+				]
+			})
+			if(!products) {
+				res.status(404).json({error: 'No encontrado'});
+				return
+			};
+
+			res.render('./products/products', {products, toThousand})
+
+		} catch(e) {
+      		res.status(500).json({ mensaje: 'Lo sentimos no se pudo establecer la conexion con la base de datos', error: e })
+		}  
+	},
+
+	//Vista filtrada por subcategorias
+	indexSubcategory: async (req,res) => {
+		try{
+			const products = await db.Product.findAll({
+				where: { subcategory_id : req.params.id },
+				//Incluir la tabla imagenes y obtener la principal
+				include: {
+							association: 'products_images',
+							where: { main: 1 }
+						},
+				//Ordenar para que aparezcan primero las ofertas y al último los productos sin stock
+				order: [
+					['offer', 'DESC'],  
+					['stock', 'DESC']
+				]
+			})
+			if(!products) {
+				res.status(404).json({error: 'No encontrado'});
+				return
+			};
+
+			res.render('./products/products', {products, toThousand})
+
+		} catch(e) {
+      		res.status(500).json({ mensaje: 'Lo sentimos no se pudo establecer la conexion con la base de datos', error: e })
+		}  
+	},
+
 	//Vista crear un producto
     create: (req, res) => {
         res.render('./products/productCreate') //crear nueva vista para creacion

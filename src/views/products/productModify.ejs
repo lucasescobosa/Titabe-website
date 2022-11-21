@@ -9,7 +9,7 @@
         <!-- icons -->
         <%- include('../partials/icons') %>
         <!-- header -->
-        <%- include('../partials/headerSimple') %>
+        <%- include('../partials/header') %>
 
         <div class="bg-light text-dark" style="padding: 5em 0;">
             <div class="container px-3 mx-auto">
@@ -26,34 +26,34 @@
                                         <h3 class="mb-4">Editando: <%=product.name%></h3>
                                     </div>
                                 </div>
-                                <form action="/products/<%=product.id%>?_method=PUT" method="POST" class="edit-form">
+                                <form action="/products/<%=product.id%>?_method=PUT" method="POST" class="edit-form" id="modifyForm">
                                     <div class="mb-3">
-                                        <label for="exampleInput1" class="form-label fw-bold">Nombre del producto</label>
-                                        <input type="text" class="form-control" id="exampleInput1" name="productName" value="<%=product.name%>">
+                                        <label for="modifyInputName" class="form-label fw-bold">Nombre del producto</label>
+                                        <input type="text" class="form-control" id="modifyInputName" name="productName" value="<%=product.name%>">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="exampleInput2" class="form-label fw-bold">Descripción breve</label>
-                                        <input type="text" class="form-control" id="exampleInput2" value="<%= product.descriptionShort%>" name="productDescriptionShort">
+                                        <label for="modifyInputDescriptionS" class="form-label fw-bold">Descripción breve</label>
+                                        <input type="text" class="form-control" id="modifyInputDescriptionS" value="<%= product.descriptionShort%>" name="productDescriptionShort">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="exampleFormControlTextarea1" class="form-label fw-bold">Descripción detallada</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value=" " name="productDescriptionLong"><%= product.descriptionLong%></textarea>
+                                        <label for="modifyInputDescriptionL" class="form-label fw-bold">Descripción detallada</label>
+                                        <textarea class="form-control" id="modifyInputDescriptionL" rows="3" value=" " name="productDescriptionLong"><%= product.descriptionLong%></textarea>
                                     </div>
                                     <div class="row g-2">
                                         <div class="col-md">
                                             <div class="mb-3">
-                                                <label for="exampleNumber" class="form-label fw-bold">Precio</label>
+                                                <label for="modifyInputPrice" class="form-label fw-bold">Precio</label>
                                                 <div class="input-group">
                                                     <span class="input-group-text">$</span>
-                                                    <input type="number" class="form-control" id="exampleNumber" value="<%= product.price %>" name="productPrice">
+                                                    <input type="number" class="form-control" id="modifyInputPrice" value="<%= product.price %>" name="productPrice">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="mb-3">
-                                                <label for="exampleNumber" class="form-label fw-bold">Descuento</label>
+                                                <label for="modifyInputDiscount" class="form-label fw-bold">Descuento</label>
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control" id="exampleNumber" value="<%= product.discount %>" name="productDiscount">
+                                                    <input type="number" class="form-control" id="modifyInputDiscount" value="<%= product.discount %>" name="productDiscount">
                                                     <span class="input-group-text">%</span>
                                                 </div>
                                             </div>
@@ -114,6 +114,7 @@
                                         <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="productStock" <% if (product.stock === 1) { %>checked<% } %>>
                                         <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">Producto en Stock</label>
                                     </div>
+                                    <div class="text-danger"><ul id="modifyErrors"></ul></div>
                                     <div class="d-flex justify-content-between">
                                         <button type="submit" class="btn btn-warning" style="width:45%">ENVIAR</button>
                                         <button type="reset" class="btn btn-danger" style="width:45%">BORRAR</button>
@@ -131,5 +132,5 @@
             <%- include('../partials/footer') %>
 
     </body>
-
+    <script src="/js/modifyValidation.js"></script>
 </html>

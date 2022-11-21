@@ -8,7 +8,11 @@ const productsController = require('../controllers/productsController')
 const productsMulterMiddleware = require('../middlewares/productsMulterMiddleware');
 
 //Listado de productos
-router.get('/', productsController.index); 
+router.get('/', productsController.index);
+
+//Filtro de categorias
+router.get('/category/:id', productsController.indexCategory)
+router.get('/subcategory/:id', productsController.indexSubcategory)
 
 //Detalle de producto
 router.get('/detail/:id', productsController.detail);
