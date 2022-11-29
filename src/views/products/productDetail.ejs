@@ -88,6 +88,15 @@
                                         <button class="btn btn-outline-dark w-50 p-2">Comprar ahora</button>
                                         <button class="btn btn-warning w-50 p-2">Agregar al carrito</button> 
                                     </div>
+
+                                    <% if (session.userLogged && session.userLogged.role_id !== 3) { %>
+                                        <div class="buttons d-flex flex-row mt-4 gap-2"> 
+                                            <a class="btn btn-success w-50 p-2" href="/products/<%=product.id%>/edit" role="button">Editar producto</a>
+                                            <form action="/products/<%=product.id%>?_method=DELETE" class="w-50" method="POST" style="display: inline-flex">
+                                                <button type="submit" class="btn btn-danger w-100 p-2">Eliminar producto</button>
+                                            </form>
+                                        </div>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -95,10 +104,6 @@
                 </div>
 
 
-                <a href="/products/<%=product.id%>/edit" class="action-button edit"><button>EDITAR PRODUCTO</button></a>
-                <form action="/products/<%=product.id%>?_method=DELETE" method="POST" style="display: inline-flex">
-                    <button type="submit" class="action-button delete">ELIMINAR</button>
-                </form>
 
             </main>
 

@@ -24,7 +24,7 @@ const productsController = {
 				return
 			};
 
-			res.render('./products/products', {products, toThousand})
+			res.render('./products/products', {products, toThousand, session: req.session})
 
 		} catch(e) {
       		res.status(500).json({ mensaje: 'Lo sentimos no se pudo establecer la conexion con la base de datos', error: e })
@@ -133,7 +133,7 @@ const productsController = {
 					association: 'products_images'
 				}
 			})
-			res.render('./products/productDetail', {product, toThousand});
+			res.render('./products/productDetail', {product, toThousand, session: req.session });
 		} catch(e) {
 			res.status(500).json({ error: e })
 		}		

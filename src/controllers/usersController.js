@@ -4,47 +4,47 @@ const db = require('../database/models');
 
 const usersController = {
     register: (req, res) => {
-        res.render("./users/register")
+        res.render("./users/register", {session : req.session})
     },
 
     store: async (req, res) => {
         
-            const resultValidation = validationResult(req); 
-    
-            //Consulto si existen errores y renderizo nuevamente la vista con los mismos
-            if(resultValidation.errors.length > 0){
-                return res.render("./users/register", {
-                    errors: resultValidation.mapped(),
-                    oldData: req.body
-                })
-            }
-            
-            //Chequeo que no existan usuarios con ese mail
-            const userRegistered = await db.User.findOne({
-                where: {email : req.body.email}
+        const resultValidation = validationResult(req); 
+
+        //Consulto si existen errores y renderizo nuevamente la vista con los mismos
+        if(resultValidation.errors.length > 0){
+            return res.render("./users/register", {
+                errors: resultValidation.mapped(),
+                oldData: req.body
             })
-            if(userRegistered){
-                return res.render("./users/register", {
-                    errors: {
-                        email: {
-                            msg: 'Este email ya está registrado'
-                        }
-                    },
-                    oldData: req.body
-                })
-            }
-            
-            //Comparo que las dos contaseñas coincidan
-            if(req.body.password != req.body.passwordCheck){
-                return res.render("./users/register", {
-                    errors: {
-                        password: {
-                            msg: 'Las contraseñas no coinciden'
-                        }
-                    },
-                    oldData: req.body
-                })
-            }
+        }
+        
+        //Chequeo que no existan usuarios con ese mail
+        const userRegistered = await db.User.findOne({
+            where: {email : req.body.email}
+        })
+        if(userRegistered){
+            return res.render("./users/register", {
+                errors: {
+                    email: {
+                        msg: 'Este email ya está registrado'
+                    }
+                },
+                oldData: req.body
+            })
+        }
+        
+        //Comparo que las dos contaseñas coincidan
+        if(req.body.password != req.body.passwordCheck){
+            return res.render("./users/register", {
+                errors: {
+                    password: {
+                        msg: 'Las contraseñas no coinciden'
+                    }
+                },
+                oldData: req.body
+            })
+        }
 
         try{
             const newUser = await db.User.create({
@@ -54,7 +54,7 @@ const usersController = {
                 address: req.body.address,
                 password: bcrypt.hashSync(req.body.password , 10),
                 image: req.file ? req.file.filename : "default.jpg",
-                role_id: req.body.admin ? 2 : 3
+                role_id: req.body.role ? req.body.role : 3
             })
     
             return res.redirect("/users/login");

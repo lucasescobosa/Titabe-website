@@ -8,7 +8,6 @@ const usersController = require('../controllers/usersController');
 const usersMulterMiddleware = require('../middlewares/usersMulterMiddleware')
 const validationsRegisterMiddleware = require('../middlewares/validationsRegisterMiddleware');
 const guestMiddleware = require('../middlewares/guestMiddleware');
-const authMiddleware = require('../middlewares/authMiddleware');
 
 //Registro de nuevo usuario
 router.get('/register', guestMiddleware, usersController.register);

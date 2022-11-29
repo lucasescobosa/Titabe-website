@@ -17,8 +17,8 @@ app.use(express.json());
 app.use(methodOverride('_method')); // Pasar poder pisar el method="POST" en el formulario por PUT y DELETE
 app.use(session({
     secret: 'Secreto Titabe',
-    resave: false,                        //Ejecución de session
-    saveUninitialized: false,
+    resave: true,                        //Ejecución de session
+    saveUninitialized: false, //if false session object will no be stored if it isn't modified (is empty)
 }));                                   
 app.use(cookieParser());                //Ejecución de cookie
 app.use(userLoggedMiddleware);

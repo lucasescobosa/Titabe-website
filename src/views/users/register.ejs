@@ -105,12 +105,17 @@
                                             <label for="formFile" class="form-label">Imagen de usuario</label>
                                             <input class="form-control" type="file" id="formFile" name="image">
                                         </div>
-                                        <div class="mt-4">
-                                            <input class="form-check-input" type="checkbox" value="true" id="invalidCheck3" name="admin">
-                                            <label class="form-check-label" for="invalidCheck3">
-                                              Administrador
-                                            </label>
-                                        </div>
+
+                                        <% if (session.userLogged && session.userLogged.role_id === 1) { %>
+                                            <div class="mt-4">
+                                                <select class="form-select" name="role">
+                                                    <option selected>Rol del usuario</option>
+                                                    <option value="1">Desarrollador</option>
+                                                    <option value="2">Administrador</option>
+                                                    <option value="3">Usuario</option>
+                                                  </select>
+                                            </div>
+                                        <% } %>
                                         <div class="text-danger mt-3"><ul id="registerErrors"></ul></div>
                                         <button type="submit" class="btn btn-warning w-100 mt-3">REGISTRARSE</button>
                                     </form>

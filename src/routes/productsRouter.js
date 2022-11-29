@@ -6,6 +6,7 @@ const productsController = require('../controllers/productsController')
 
 //Middlewares
 const productsMulterMiddleware = require('../middlewares/productsMulterMiddleware');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 //Listado de productos
 router.get('/', productsController.index);
@@ -18,11 +19,11 @@ router.get('/subcategory/:id', productsController.indexSubcategory)
 router.get('/detail/:id', productsController.detail);
 
 //Formulario de creación de productos
-router.get('/create', productsController.create);
+router.get('/create', authMiddleware, productsController.create);
 router.post('/', productsMulterMiddleware.fields([{name: 'productImageMain', maxCount: 1} , {name: 'productImages' , maxCount: 3}]), productsController.store);
 
 //Edicion de producto
-router.get('/:id/edit', productsController.modify);
+router.get('/:id/edit', authMiddleware, productsController.modify);
 router.put('/:id', productsController.update);
 
 //Borrado de producto

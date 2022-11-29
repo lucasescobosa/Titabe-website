@@ -62,6 +62,9 @@
                         </li>
                         <li class="border-top my-3"></li>
                       </ul>
+                      <% if (session.userLogged && session.userLogged.role_id !== 3) { %>
+                        <a class="btn btn-success w-100" href="/products/create" role="button">Nuevo Producto</a>
+                      <% } %>
                     </div>
         
                   </div>
