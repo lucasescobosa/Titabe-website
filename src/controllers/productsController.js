@@ -170,7 +170,7 @@ const productsController = {
 			},{
 				where: { id : req.params.id	}
 			})
-			res.redirect('/products/');
+			res.redirect(`/products/detail/${req.params.id}`);
 
 		} catch(e) {
 			res.status(500).json({ error: e })

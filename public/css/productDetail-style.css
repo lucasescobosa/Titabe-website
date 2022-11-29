@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Condensed&family=Roboto:ital,wght@0,400;0,700;1,100&display=swap');
 body {
     background-color: #ecedee
 }
@@ -44,4 +45,17 @@ body {
     height: 50px;
     width: 150px;
     border-radius: 0px !important
+}
+
+.detail-title {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.detail-price {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+.detail-description {
+    font-family: 'Roboto Condensed', sans-serif;
 }

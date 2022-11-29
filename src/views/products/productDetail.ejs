@@ -41,16 +41,52 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="p-3 right-side">
-                                    <h3><%= product.name %></h3>
+                                    <nav style="--bs-breadcrumb-divider: '|';" aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a class="link-warning" href="/">Home</a></li>
+                                            <li class="breadcrumb-item"><a class="link-warning" href="/products">Productos</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Parrillas</li>
+                                        </ol>
+                                    </nav>
+                                    <h1 class="detail-title mb-4"><%= product.name %></h1>
 
-                                    <p class="mt-2 pr-3 content"><%= product.descriptionLong %></p>
+                                    <div class="d-flex aligns-items-center justify-content-start border-start border-bottom p-2">
+                                        <h1 class="detail-price text-warning">$<%= toThousand(product.price) %></h1>
+                                        <p class="ms-3 my-auto text-muted"><em>precio exclusivo via transferencia</em></p>
+                                    </div>
+                                    <div class="d-flex flex-column aligns-items-center justify-content-start border-start border-bottom p-2 my-3">
+                                        <div>
+                                            <h6><em>Comprá con tu tarjeta favorita en:</em></h6>
+                                        </div>
+                                        <div class="d-flex ">
+                                            <select class="form-select form-select-lg mb-1" style="width: auto;">
+                                                <option selected value="6">6</option>
+                                                <option value="3">3</option>
+                                                <option value="1">1</option>
+                                              </select>
+                                            <h4 class="m-auto mx-2">Cuotas sin interés de:</h4>
+                                            <h2 class="detail-price my-auto">$<%= toThousand(product.price * 0.266) %></h2>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column aligns-items-center justify-content-start border-start border-bottom p-2 my-3">
+                                        <div>
+                                            <h6><em>Pago en efectivo (únicamente en Córdoba Capital):</em></h6>
+                                        </div>
+                                        <div>
+                                            <h2 class="detail-price">$<%= toThousand(product.price * 0.95) %></h2>
+                                        </div>
+                                    </div>
                                     
-                                    <h3>$<%= toThousand(product.price) %></h3>
-                                    <p class="card-text"><small class="text-muted">Obtene un 10% pagando en efectivo</small></p>
+                                    <% let descriptionItems = product.descriptionLong.split('\n') %>
+                                    <ul class="mt-4">
+                                        <% for( let i = 0; i < descriptionItems.length; i++ ) { %>
+                                            <li type='square' class="mt-2 pr-3 content detail-description"><%= descriptionItems[i] %></li>
+                                        <% } %>
+                                    </ul>
 
-                                    <div class="buttons d-flex flex-row mt-5 gap-3"> 
-                                        <button class="btn btn-outline-dark">Comprar ahora</button>
-                                        <button class="btn btn-dark">Agregar al carrito</button> 
+                                    <div class="buttons d-flex flex-row mt-4 gap-2"> 
+                                        <button class="btn btn-outline-dark w-50 p-2">Comprar ahora</button>
+                                        <button class="btn btn-warning w-50 p-2">Agregar al carrito</button> 
                                     </div>
                                 </div>
                             </div>
