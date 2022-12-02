@@ -207,3 +207,9 @@ main {
         width: 23%;
     }
 }
+
+@media (min-width: 992px) {
+    .categoriesCollapse{
+        display: block !important;
+    }
+}

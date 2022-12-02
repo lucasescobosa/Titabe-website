@@ -29,23 +29,38 @@
                                 <form action="/products/<%=product.id%>?_method=PUT" method="POST" class="edit-form" id="modifyForm">
                                     <div class="mb-3">
                                         <label for="modifyInputName" class="form-label fw-bold">Nombre del producto</label>
-                                        <input type="text" class="form-control" id="modifyInputName" name="productName" value="<%=product.name%>">
+                                        <input type="text" class="form-control <%= locals.errors && errors.productName ? 'is-invalid' : null %>" id="modifyInputName" name="productName" value="<%=locals.oldData ? oldData.productName : product.name%>">
                                     </div>
+                                    <% if (locals.errors && errors.productName) { %>
+                                        <div class="text-danger mb-3">
+                                            <%= errors.productName.msg %> 
+                                        </div>     
+                                    <% } %>
                                     <div class="mb-3">
                                         <label for="modifyInputDescriptionS" class="form-label fw-bold">Descripción breve</label>
-                                        <input type="text" class="form-control" id="modifyInputDescriptionS" value="<%= product.descriptionShort%>" name="productDescriptionShort">
+                                        <input type="text" class="form-control <%= locals.errors && errors.productDescriptionShort ? 'is-invalid' : null %>" id="modifyInputDescriptionS" value="<%=locals.oldData ? oldData.productDescriptionShort : product.descriptionShort%>" name="productDescriptionShort">
                                     </div>
+                                    <% if (locals.errors && errors.productDescriptionShort) { %>
+                                        <div class="text-danger mb-3">
+                                            <%= errors.productDescriptionShort.msg %> 
+                                        </div>     
+                                    <% } %>
                                     <div class="mb-3">
                                         <label for="modifyInputDescriptionL" class="form-label fw-bold">Descripción detallada</label>
-                                        <textarea class="form-control" id="modifyInputDescriptionL" rows="3" value=" " name="productDescriptionLong"><%= product.descriptionLong%></textarea>
+                                        <textarea class="form-control <%= locals.errors && errors.productDescriptionLong ? 'is-invalid' : null %>" id="modifyInputDescriptionL" rows="3" value=" " name="productDescriptionLong"><%=locals.oldData ? oldData.productDescriptionLong : product.descriptionLong%></textarea>
                                     </div>
+                                    <% if (locals.errors && errors.productDescriptionLong) { %>
+                                        <div class="text-danger mb-3">
+                                            <%= errors.productDescriptionLong.msg %> 
+                                        </div>     
+                                    <% } %>
                                     <div class="row g-2">
                                         <div class="col-md">
                                             <div class="mb-3">
                                                 <label for="modifyInputPrice" class="form-label fw-bold">Precio</label>
                                                 <div class="input-group">
                                                     <span class="input-group-text">$</span>
-                                                    <input type="number" class="form-control" id="modifyInputPrice" value="<%= product.price %>" name="productPrice">
+                                                    <input type="number" class="form-control <%= locals.errors && errors.productPrice ? 'is-invalid' : null %>" id="modifyInputPrice" value="<%=locals.oldData ? oldData.productPrice : product.price %>" name="productPrice">
                                                 </div>
                                             </div>
                                         </div>
@@ -53,12 +68,22 @@
                                             <div class="mb-3">
                                                 <label for="modifyInputDiscount" class="form-label fw-bold">Descuento</label>
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control" id="modifyInputDiscount" value="<%= product.discount %>" name="productDiscount">
+                                                    <input type="number" class="form-control <%= locals.errors && errors.productDiscount ? 'is-invalid' : null %>" id="modifyInputDiscount" value="<%=locals.oldData ? oldData.productDiscount : product.discount %>" name="productDiscount">
                                                     <span class="input-group-text">%</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <% if (locals.errors && errors.productPrice) { %>
+                                        <div class="text-danger mb-3">
+                                            <%= errors.productPrice.msg %> 
+                                        </div>     
+                                    <% } %>
+                                    <% if (locals.errors && errors.productDiscount) { %>
+                                        <div class="text-danger mb-3">
+                                            <%= errors.productDiscount.msg %> 
+                                        </div>     
+                                    <% } %>
                                     <div class="row g-2">
                                         <div class="col-md">
                                             <div class="mb-3">
@@ -99,12 +124,27 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <% if (locals.errors && errors.productCategory) { %>
+                                        <div class="text-danger mb-3">
+                                            <%= errors.productCategory.msg %> 
+                                        </div>     
+                                    <% } %>
+                                    <% if (locals.errors && errors.productSubcategory) { %>
+                                        <div class="text-danger mb-3">
+                                            <%= errors.productSubcategory.msg %> 
+                                        </div>     
+                                    <% } %>
                                     <div class="mb-4">
                                         <label for="formFile" class="form-label  fw-bold">Fotos del producto</label>
                                         <div class="input-group mb-2">
-                                            <input class="form-control" type="file" id="formFile" name="productImageMain">
+                                            <input class="form-control <%= locals.errors && errors.productImageMain ? 'is-invalid' : null %>" type="file" id="formFile" name="productImageMain">
                                             <label class="input-group-text" for="inputGroupFile01">Portada</label>
                                         </div>
+                                        <% if (locals.errors && errors.productImageMain) { %>
+                                            <div class="text-danger mb-3">
+                                                <%= errors.productImageMain.msg %> 
+                                            </div>     
+                                        <% } %>
                                         <div class="input-group">
                                             <input class="form-control" type="file" id="formFile" name="productImages" multiple>
                                             <label class="input-group-text" for="inputGroupFile01">Otras</label>
@@ -132,5 +172,5 @@
             <%- include('../partials/footer') %>
 
     </body>
-    <script src="/js/modifyValidation.js"></script>
+    <!--<script src="/js/modifyValidation.js"></script>-->
 </html>

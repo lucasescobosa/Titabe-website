@@ -1,5 +1,6 @@
 const { json } = require('express');
 const db = require('../database/models');
+const { validationResult } = require("express-validator");
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
@@ -56,7 +57,7 @@ const productsController = {
 				return
 			};
 
-			res.render('./products/products', {products, toThousand})
+			res.render('./products/products', {products, toThousand, session: req.session})
 
 		} catch(e) {
       		res.status(500).json({ mensaje: 'Lo sentimos no se pudo establecer la conexion con la base de datos', error: e })
@@ -84,7 +85,7 @@ const productsController = {
 				return
 			};
 
-			res.render('./products/products', {products, toThousand})
+			res.render('./products/products', {products, toThousand, session: req.session})
 
 		} catch(e) {
       		res.status(500).json({ mensaje: 'Lo sentimos no se pudo establecer la conexion con la base de datos', error: e })
@@ -98,6 +99,15 @@ const productsController = {
 
 	//Formulario de creacion de un producto
     store: async (req, res) => {
+		const resultValidation = validationResult(req); 
+        
+        if(resultValidation.errors.length > 0){
+            return res.render('./products/productCreate', {
+                errors: resultValidation.mapped(),
+                oldData: req.body
+            })
+        };
+		
         try {
 			const product = await db.Product.create({
 				name : req.body.productName,
@@ -157,6 +167,23 @@ const productsController = {
 
 	//Formulario de modificacion de producto
     update: async (req, res) => {
+		const resultValidation = validationResult(req); 
+        
+        if(resultValidation.errors.length > 0){
+			try {
+				const product = await db.Product.findByPk(req.params.id , {
+					include: {
+						association: 'products_images'
+					}
+				})
+				const categories = await db.Category.findAll();
+				const subcategories = await db.Subcategory.findAll();
+				return res.render('./products/productModify', {errors: resultValidation.mapped(), oldData: req.body, product, categories, subcategories, toThousand});
+			} catch(e) {
+				res.status(500).json({ error: e })
+			}
+        };
+
 		try {
 			const product = await db.Product.update({
 				name : req.body.productName,
